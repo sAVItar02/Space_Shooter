@@ -8,7 +8,11 @@ public class Player : MonoBehaviour
     //Config Params
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float padding = 0.5f;
+    [SerializeField] float projectileSpeed = 10f;
+    [SerializeField] float firingDelay = 0.15f;
     [SerializeField] GameObject laserPrefab;
+
+    Coroutine fireCoroutine;
 
     float xMin, xMax;
     float yMin, yMax;
@@ -17,6 +21,47 @@ public class Player : MonoBehaviour
     void Start()
     {
         SetUpMoveBoundaries();   
+    }
+
+ 
+    // Update is called once per frame
+    void Update()
+    {
+        Move();
+        Fire();
+    }
+
+    private void Fire()
+    {
+        if(Input.GetButtonDown("Fire1"))
+        {
+            fireCoroutine = StartCoroutine(FireContinuously());
+        }
+        if(Input.GetButtonUp("Fire1"))
+        {
+            StopCoroutine(fireCoroutine);
+        }
+    }
+
+    IEnumerator FireContinuously()
+    {
+        while(true)
+        {
+            GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity) as GameObject;
+            laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
+            yield return new WaitForSeconds(firingDelay);
+        }
+    }
+
+    private void Move()
+    {
+        var deltaX = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
+        var deltaY = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
+
+        var newXPos = Mathf.Clamp(transform.position.x + deltaX, xMin, xMax);
+        var newYPos = Mathf.Clamp(transform.position.y + deltaY, yMin, yMax);
+
+        transform.position = new Vector2(newXPos, newYPos);
     }
 
     private void SetUpMoveBoundaries()
@@ -30,20 +75,4 @@ public class Player : MonoBehaviour
         yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 0.5f, 0)).y;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Move();
-    }
-
-    private void Move()
-    {
-        var deltaX = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
-        var deltaY = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
-
-        var newXPos = Mathf.Clamp(transform.position.x + deltaX, xMin, xMax);
-        var newYPos = Mathf.Clamp(transform.position.y + deltaY, yMin, yMax);
-
-        transform.position = new Vector2(newXPos, newYPos);
-    }
 }

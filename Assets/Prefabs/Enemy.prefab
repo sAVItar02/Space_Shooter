@@ -114,6 +114,9 @@ MonoBehaviour:
   maxTimeBetweenShots: 2
   enemyLaser: {fileID: 2342959828096585763, guid: 168c870c70dbc554d81b19c57552e9db,
     type: 3}
+  enemyDeathVFX: {fileID: 2862364153181087189, guid: 7673437d4b1ea6c499796717a4119849,
+    type: 3}
+  durationOfExplosion: 1
   enemyProjectileSpeed: -8
 --- !u!60 &8566162298497564994
 PolygonCollider2D:

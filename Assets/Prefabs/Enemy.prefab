@@ -112,12 +112,16 @@ MonoBehaviour:
   shotCounter: 0
   minTimeBetweenShots: 0.5
   maxTimeBetweenShots: 2
-  enemyLaser: {fileID: 2342959828096585763, guid: 168c870c70dbc554d81b19c57552e9db,
-    type: 3}
+  enemyProjectileSpeed: -8
   enemyDeathVFX: {fileID: 2862364153181087189, guid: 7673437d4b1ea6c499796717a4119849,
     type: 3}
   durationOfExplosion: 1
-  enemyProjectileSpeed: -8
+  enemyLaser: {fileID: 2342959828096585763, guid: 168c870c70dbc554d81b19c57552e9db,
+    type: 3}
+  enemyDeathSFX: {fileID: 8300000, guid: 93c898c9bff26934c8e108b1c2478d53, type: 3}
+  SFXvolume: 0.8
+  shootSFX: {fileID: 8300000, guid: 2053a3f931caf0b44bdd9eb1a0153aa6, type: 3}
+  shootSFXVolume: 0.25
 --- !u!60 &8566162298497564994
 PolygonCollider2D:
   m_ObjectHideFlags: 0

@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float padding = 0.5f;
     [SerializeField] int health = 1000;
+    [SerializeField] GameObject playerHitVFX;
+    [SerializeField] float durationOfExplosion = 0.5f;
+    [SerializeField] AudioClip playerHitSFX;
 
     [Header("Projectile")]
     [SerializeField] float projectileSpeed = 10f;
@@ -49,6 +52,9 @@ public class Player : MonoBehaviour
 
     private void ProcessHit(DamageDealer damageDealer)
     {
+        GameObject playerHitParticles = Instantiate(playerHitVFX, transform.position, Quaternion.identity);
+        Destroy(playerHitParticles, durationOfExplosion);
+        AudioSource.PlayClipAtPoint(playerHitSFX, Camera.main.transform.position, SFXvolume);
         health = health - damageDealer.GetDamage();
         damageDealer.Hit();
         if (health <= 0)
@@ -57,10 +63,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Die()
+    public void Die()
     {
         Destroy(gameObject);
         AudioSource.PlayClipAtPoint(playerDeathSFX, Camera.main.transform.position, SFXvolume);
+        FindObjectOfType<Level>().LoadGameOver();
     }
 
     private void Fire()

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3261382275456716553}
   m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,6 +98,10 @@ MonoBehaviour:
   moveSpeed: 15
   padding: 0.5
   health: 1000
+  playerHitVFX: {fileID: 8254751510339662990, guid: a17412a3b5c2a6c40b0e1ee1a661e115,
+    type: 3}
+  durationOfExplosion: 0.5
+  playerHitSFX: {fileID: 8300000, guid: ec120d7bb162774468af58a371b5fd5c, type: 3}
   projectileSpeed: 20
   firingDelay: 0.08
   laserPrefab: {fileID: 5595547131953795475, guid: 86e0911a1f333f14d8b22eefe7d704df,

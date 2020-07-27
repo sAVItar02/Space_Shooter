@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] AudioClip enemyDeathSFX;
     [SerializeField] [Range(0, 1)] float SFXvolume = 0.75f;
     [SerializeField] AudioClip shootSFX;
-    [SerializeField] [Range(0, 1)] float shootSFXVolume = 0.75f;
+    [SerializeField] [Range(0, 1)] float SFXVolume = 0.75f;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
     {
         var laser = Instantiate(enemyLaser, gameObject.transform.position, Quaternion.identity) as GameObject;
         laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, enemyProjectileSpeed);
-        AudioSource.PlayClipAtPoint(shootSFX, Camera.main.transform.position, shootSFXVolume);
+        AudioSource.PlayClipAtPoint(shootSFX, Camera.main.transform.position, SFXVolume);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

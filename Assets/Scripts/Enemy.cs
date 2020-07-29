@@ -4,6 +4,7 @@ public class Enemy : MonoBehaviour
 {
     [Header("Enemy")]
     [SerializeField] int health = 500;
+    [SerializeField] int scoreValue = 150;
     [SerializeField] float shotCounter;
     [SerializeField] float minTimeBetweenShots = 0.1f;
     [SerializeField] float maxTimeBetweenShots = 0.5f;
@@ -61,10 +62,16 @@ public class Enemy : MonoBehaviour
         damageDealer.Hit();
         if (health <= 0)
         {
-            Destroy(gameObject);
-            GameObject enemyDeathParticles = Instantiate(enemyDeathVFX, transform.position, transform.rotation);
-            Destroy(enemyDeathParticles, durationOfExplosion);
-            AudioSource.PlayClipAtPoint(enemyDeathSFX, Camera.main.transform.position, SFXvolume);
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        FindObjectOfType<GameSession>().AddToScore(scoreValue);
+        Destroy(gameObject);
+        GameObject enemyDeathParticles = Instantiate(enemyDeathVFX, transform.position, transform.rotation);
+        Destroy(enemyDeathParticles, durationOfExplosion);
+        AudioSource.PlayClipAtPoint(enemyDeathSFX, Camera.main.transform.position, SFXvolume);
     }
 }

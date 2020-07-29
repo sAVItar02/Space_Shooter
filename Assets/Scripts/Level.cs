@@ -8,27 +8,32 @@ public class Level : MonoBehaviour
 {
     [SerializeField] Animator transition;
     [SerializeField] float transitionTime = 1f;
-    IEnumerator LoadLevel(int levelIndex)
+    IEnumerator LoadLevel(int levelIndex, float transitionTime, float waitTime)
     {
-        transition.SetTrigger("Start");
+        StartCoroutine(SetTrigger(waitTime));
         yield return new WaitForSeconds(transitionTime);
         SceneManager.LoadScene(levelIndex);
     }
     public void LoadStartMenu()
     {
-        StartCoroutine(LoadLevel(0));
+        StartCoroutine(LoadLevel(0, transitionTime, 0f));
     }
 
     public void LoadGame()
     {
         //SceneManager.LoadScene("Game Scene");
-        StartCoroutine(LoadLevel(1));
+        StartCoroutine(LoadLevel(1, transitionTime, 0f));
     }
 
     public void LoadGameOver()
     {
-        // SceneManager.LoadScene("Game Over");
-        StartCoroutine(LoadLevel(2));
+        StartCoroutine(LoadLevel(2, transitionTime, 2f));
+    }
+
+    IEnumerator SetTrigger(float time)
+    {
+        yield return new WaitForSeconds(time);
+        transition.SetTrigger("Start");
     }
 
     public void QuitGame()
